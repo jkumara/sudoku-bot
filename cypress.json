@@ -1,0 +1,7 @@
+{
+	"integrationFolder": "src/runners",
+	"screenshotsFolder": "screenshots",
+	"fixturesFolder": false,
+	"pluginsFile": false,
+	"supportFile": false
+}
