@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cypress open"
   },
-  "author": "",
+  "author": "jkumara",
   "license": "ISC",
   "dependencies": {
     "cypress": "^3.4.1"

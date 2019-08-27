@@ -1,75 +1,78 @@
 const isValidGuess = (n, guess, index, puzzle) => {
-  // check row
-  const row = Math.floor(index / n)
-  if (puzzle.slice(row*n, row*n + n).includes(guess)) {
-    return false
+  // Check row
+  const row = Math.floor(index / n);
+  if (puzzle.slice(row * n, row * n + n).includes(guess)) {
+    return false;
   }
 
-  // check column
-  const col = index % n
-  for (let i = 0; i < n*n; i+=n) {
+  // Check column
+  const col = index % n;
+  for (let i = 0; i < n * n; i += n) {
     if (puzzle[i + col] === guess) {
-      return false
+      return false;
     }
   }
 
-  // check segment
-  const segmentN = Math.floor(Math.sqrt(n))
-  const segmentX = Math.floor(col / segmentN)
-  const segmentY = Math.floor(row / segmentN)
+  // Check segment
+  const segmentN = Math.floor(Math.sqrt(n));
+  const segmentX = Math.floor(col / segmentN);
+  const segmentY = Math.floor(row / segmentN);
 
-  const startSegment = (segmentX * segmentN) + (n * segmentN * segmentY)
+  const startSegment = segmentX * segmentN + n * segmentN * segmentY;
 
   for (let i = 0; i < segmentN; i++) {
     for (let j = 0; j < segmentN; j++) {
-      if (puzzle[startSegment + i*n + j] === guess) {
-        return false
-      }      
-    }    
+      if (puzzle[startSegment + i * n + j] === guess) {
+        return false;
+      }
+    }
   }
 
-  return true
-}
+  return true;
+};
 
 export function* solve(puzzle) {
-  const n = Math.sqrt(puzzle.length)
+  const n = Math.sqrt(puzzle.length);
 
   if (!Number.isInteger(n)) {
-    throw new Error("I solve only square puzzles")
+    throw new Error("I solve only square puzzles");
   }
 
   // Find out which ones need solving
-  const emptyPositions = puzzle.map((num, i) => num === 0 && i).filter(pos => pos !== false)
-  const solved = Array.from(puzzle)
+  const emptyPositions = puzzle
+    .map((num, i) => num === 0 && i)
+    .filter(pos => pos !== false);
 
-  let current = 0
+  const solved = Array.from(puzzle);
+
+  let current = 0;
 
   while (current < emptyPositions.length) {
-    const position = emptyPositions[current]
+    const position = emptyPositions[current];
 
-    let solution = 0
-    let guess = solved[position]
+    let solution = 0;
+    let guess = solved[position];
 
     while (guess < n) {
       if (isValidGuess(n, ++guess, position, solved)) {
-        solution = guess
-        break
+        solution = guess;
+        break;
       }
     }
 
-    solved[position] = solution
+    solved[position] = solution;
 
     if (solution > 0) {
-      current++
+      current++;
     } else {
-      current--
+      current--;
     }
 
     yield {
       position,
       solution
-    }
+    };
   }
 
-  return solved
+  return solved;
 }
