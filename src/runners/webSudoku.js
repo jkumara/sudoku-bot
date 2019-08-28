@@ -25,7 +25,6 @@ context("Web Sudoku", () => {
     it("Let's play #" + (i + 1), () => {
       cy.get("#puzzle_grid td input").then($inputs => {
         const puzzle = Array.from($inputs).map(e => parseInt(e.value) || 0);
-        const solution = solve(puzzle);
 
         for (let { position, solution } of solve(puzzle)) {
           cy.wrap($inputs[position], { log: false })
