@@ -2,6 +2,9 @@
 import { solve } from "../sudoku";
 
 context("Web Sudoku", () => {
+  // Turn off uncaught exception handling, since websudoku.com's xhr-requests sometimes seem to fail
+  Cypress.on("uncaught:exception", () => false);
+
   beforeEach(() => {
     cy.visit(
       "https://nine.websudoku.com/?level=" + Cypress._.random(1, 4, false)
