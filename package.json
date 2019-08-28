@@ -4,7 +4,8 @@
   "description": "Sudoku solving bot",
   "main": "src/sudoku.js",
   "scripts": {
-    "start": "cypress open"
+    "start": "cypress open",
+    "start:background": "cypress run"
   },
   "author": "jkumara",
   "license": "ISC",
