@@ -21,7 +21,7 @@ context("Web Sudoku", () => {
       .wait(2500);
   });
 
-  Cypress._.times(1000, i => {
+  Cypress._.times(10, i => {
     it("Let's play #" + (i + 1), () => {
       cy.get("#puzzle_grid td input").then($inputs => {
         const puzzle = Array.from($inputs).map(e => parseInt(e.value) || 0);
